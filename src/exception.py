@@ -3,13 +3,13 @@ import sys
 class CustomException(Exception):
     """Base class for custom exception."""
 
-    def __init__(self, error_message: str, error_details=sys):
-        super().__init__(error_message)
+    def __init__(self, message: str, error=sys):
+        super().__init__(message)
 
-        self.error_message = error_message
-        self.error_details = error_details
+        self.message = message
+        self.error = error
 
-        _, _, exc_tb = error_details.exc_info()
+        _, _, exc_tb = error.exc_info()
 
         while exc_tb and exc_tb.tb_next:
             exc_tb = exc_tb.tb_next
@@ -21,5 +21,5 @@ class CustomException(Exception):
         return (
             f"Error occurred in script: [{self.file_name}]",
             f"at line number: [{self.line_number}]",
-            f"Error message: [{self.error_message}]"
+            f"Error message: [{self.message}]"
         )
