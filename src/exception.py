@@ -9,13 +9,13 @@ class CustomException(Exception):
         self.error_message = error_message
         self.error_details = error_details
 
-        _, _, tb_exc = error_details.exc_info()
+        _, _, exc_tb = error_details.exc_info()
 
-        while tb_exc and tb_exc.tb_next:
-            tb_exc = tb_exc.tb_next
+        while exc_tb and exc_tb.tb_next:
+            exc_tb = exc_tb.tb_next
 
-        self.line_number = tb_exc.tb_lineno if tb_exc else None
-        self.file_name = tb_exc.tb_frame.f_code.co_filename if tb_exc else None
+        self.line_number = exc_tb.tb_lineno if exc_tb else None
+        self.file_name = exc_tb.tb_frame.f_code.co_filename if exc_tb else None
 
     def __str__(self) -> str:
         return (
